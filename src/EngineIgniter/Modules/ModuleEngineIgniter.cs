@@ -3,21 +3,38 @@ using UnityEngine;
 
 namespace EngineIgniter.Modules
 {
+    [KSPModule("Engine Igniter")]
     public class ModuleEngineIgniter : PartModule
     {
         [KSPField(isPersistant = false)]
-        public int ignitionsPermitted;
+        public int IgnitionsPermitted;
 
-        [KSPField(isPersistant = true)]
-        public int ignitionsUsed;
+        [KSPField(isPersistant = true, guiName = "Ignitions Available", guiActive = true, guiActiveEditor = true)]
+        public int IgnitionsAvailable;
+
+        private ModuleEngines engine;
+
+        private EngineIgnitionState engineState = EngineIgnitionState.NotIgnited;
+
+        private StartState startState = StartState.None;
+
+        private enum EngineIgnitionState
+        {
+            NotIgnited,
+            Ignited
+        }
+
+        private bool IsStartable => !this.RequiresIgnition || this.IgnitionsAvailable > 0;
+
+        private bool RequiresIgnition => this.IgnitionsPermitted > 0;
 
         public override string GetInfo()
         {
             string info = "This engine can be started ";
 
-            if (this.requiresIgnition)
+            if (this.RequiresIgnition)
             {
-                info += $"{this.ignitionsPermitted} {this.Pluralise("time", this.ignitionsPermitted)}.";
+                info += $"{this.IgnitionsPermitted} {this.Pluralise("time", this.IgnitionsPermitted)}.";
             }
             else
             {
@@ -33,9 +50,9 @@ namespace EngineIgniter.Modules
 
             string info = $"Loaded on {this.part.name}; ";
 
-            if (this.requiresIgnition)
+            if (this.RequiresIgnition)
             {
-                info += $"{this.ignitionsPermitted} ignitions permitted, {this.ignitionsAvailable} ignitions remaining.";
+                info += $"{this.IgnitionsPermitted} ignitions permitted, {this.IgnitionsAvailable} ignitions remaining.";
             }
             else
             {
@@ -54,7 +71,7 @@ namespace EngineIgniter.Modules
             // If we are in the editor, set the available ignitions to max
             if (this.startState == StartState.Editor)
             {
-                this.ignitionsUsed = 0;
+                this.IgnitionsAvailable = this.IgnitionsPermitted;
             }
         }
 
@@ -72,11 +89,14 @@ namespace EngineIgniter.Modules
             {
                 // If the engine is in a start-able state, use up one ignition count and switch the
                 // engine's state
-                if (this.isStartable)
+                if (this.IsStartable)
                 {
-                    this.ignitionsUsed++;
+                    if (this.IgnitionsAvailable > 0)
+                    {
+                        this.IgnitionsAvailable--;
+                    }
 
-                    this.Log($"Igniting {this.engine.name}: {this.ignitionsAvailable} ignitions remaining");
+                    this.Log($"Igniting {this.engine.name}: {this.IgnitionsAvailable} ignitions remaining");
 
                     this.engineState = EngineIgnitionState.Ignited;
                 }
@@ -87,7 +107,7 @@ namespace EngineIgniter.Modules
                     this.Log($"{this.engine.name} has no ignitions remaining");
 
                     // Let's be nice and tell the pilot what's going on...
-                    ScreenMessages.PostScreenMessage($"{this.engine.part.partInfo.title} has no ignitions remaining");
+                    ScreenMessages.PostScreenMessage($"{this.engine.part.partInfo.title} has no ignitions remaining!", 5.0f);
 
                     this.ShutdownEngine();
                 }
@@ -101,24 +121,6 @@ namespace EngineIgniter.Modules
             }
         }
 
-        private ModuleEngines engine;
-
-        private EngineIgnitionState engineState = EngineIgnitionState.NotIgnited;
-
-        private StartState startState = StartState.None;
-
-        private enum EngineIgnitionState
-        {
-            NotIgnited,
-            Ignited
-        }
-
-        private int ignitionsAvailable => this.ignitionsPermitted - this.ignitionsUsed < 0 ? 0 : this.ignitionsPermitted - this.ignitionsUsed;
-
-        private bool isStartable => !this.requiresIgnition || this.ignitionsAvailable > 0;
-
-        private bool requiresIgnition => this.ignitionsPermitted > 0;
-
         private void Log(string message)
         {
             Debug.Log($"[ModuleEngineIgnitor]: {message}");
@@ -130,7 +132,7 @@ namespace EngineIgniter.Modules
         {
             this.engine.SetRunningGroupsActive(false);
 
-            foreach (var e in engine.Events)
+            foreach (var e in this.engine.Events)
             {
                 if (e.name.IndexOf("shutdown", StringComparison.CurrentCultureIgnoreCase) >= 0)
                 {
