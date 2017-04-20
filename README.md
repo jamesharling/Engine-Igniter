@@ -7,7 +7,7 @@ Generally, engines have the following number of ignitions:
 * Nuclear engines
   * Unlimited ignitions
 * Service module engines, e.g. Poodle, Terrier
-  * 20 ignitions
+  * 50 ignitions
 * Upper stage engines, e.g. Skipper, Rhino, Vector
   *  3 ignitions (air start to apogee, circularisation, injection burn)
 * Everything else
