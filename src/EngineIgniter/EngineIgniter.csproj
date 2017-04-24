@@ -59,10 +59,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\KSP\GameData\EngineIgniter\Plugins\"
-copy "$(ProjectDir)*.cfg" "$(SolutionDir)\..\KSP\GameData\EngineIgniter"
-
-copy "$(TargetPath)" "$(SolutionDir)..\GameData\EngineIgniter\Plugins\"
-copy "$(ProjectDir)*.cfg" "$(SolutionDir)..\GameData\EngineIgniter"</PostBuildEvent>
+copy "$(ProjectDir)*.cfg" "$(SolutionDir)\..\KSP\GameData\EngineIgniter"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
