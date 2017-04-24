@@ -53,13 +53,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Engines-VenStockRevamp.cfg" />
-    <None Include="Engines-Squad.cfg" />
+    <None Include="PartPatches\Engines-VenStockRevamp.cfg" />
+    <None Include="PartPatches\Engines-Squad.cfg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\KSP\GameData\EngineIgniter\Plugins\"
-copy "$(ProjectDir)*.cfg" "$(SolutionDir)\..\KSP\GameData\EngineIgniter"</PostBuildEvent>
+    <PostBuildEvent>xcopy /e/y "$(TargetPath)" "$(SolutionDir)..\KSP\GameData\EngineIgniter\Plugins\"
+xcopy /e/y "$(ProjectDir)PartPatches" "$(SolutionDir)\..\KSP\GameData\EngineIgniter\PartPatches\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
