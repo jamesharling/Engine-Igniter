@@ -1,0 +1,19 @@
+//Mite hybrid
+@PART[hybridSmal]:FOR[EngineIgniter]:NEEDS[!RealismOverhaul]
+{
+    MODULE
+    {
+        name = ModuleEngineIgniter
+		        IgnitionsPermitted = 2
+    }
+}
+
+//Screwdriver
+@PART[liquidEngineMini]:FOR[EngineIgniter]:NEEDS[!RealismOverhaul]
+{
+    MODULE
+    {
+        name = ModuleEngineIgniter
+		        IgnitionsPermitted = 1
+    }
+}
