@@ -3,17 +3,37 @@
 {
     MODULE
     {
-        name = ModuleEngineIgniter
-		        IgnitionsPermitted = 2
+        name = ModuleEngineIgnitor
+	    IgnitionsPermitted = 2
     }
 }
 
 //Screwdriver
-@PART[liquidEngineMini]:FOR[EngineIgniter]:NEEDS[!RealismOverhaul]
+@PART[TD14]:FOR[EngineIgniter]:NEEDS[!RealismOverhaul]
 {
     MODULE
     {
         name = ModuleEngineIgniter
-		        IgnitionsPermitted = 1
+	    IgnitionsPermitted = 2
+    }
+}
+
+//Runner
+@PART[hybridLarge]:FOR[EngineIngnitor]:NEEDS[!RealismOverhaul]
+{
+    MODULE
+    {
+        name = moduleEngineIgnitor
+	    IgnitionsPermitted = 2
+    }
+}
+
+//BodyBlow
+@PART[hybridExtraLarge]:FOR[EngineIgnitor]:NEEDS[!RealismOverhaul]
+{
+    MODULE
+    {
+        name = moduleEngineIgnitor
+	IgnitionsPermitted = 2
     }
 }
