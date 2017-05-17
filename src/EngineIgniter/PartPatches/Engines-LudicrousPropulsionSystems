@@ -3,7 +3,7 @@
 {
     MODULE
     {
-        name = ModuleEngineIgnitor
+        name = ModuleEngineIgniter
 	    IgnitionsPermitted = 2
     }
 }
@@ -19,21 +19,21 @@
 }
 
 //Runner
-@PART[hybridLarge]:FOR[EngineIngnitor]:NEEDS[!RealismOverhaul]
+@PART[hybridLarge]:FOR[EngineIngniter]:NEEDS[!RealismOverhaul]
 {
     MODULE
     {
-        name = moduleEngineIgnitor
+        name = moduleEngineIgniter
 	    IgnitionsPermitted = 2
     }
 }
 
 //BodyBlow
-@PART[hybridExtraLarge]:FOR[EngineIgnitor]:NEEDS[!RealismOverhaul]
+@PART[hybridExtraLarge]:FOR[EngineIgniter]:NEEDS[!RealismOverhaul]
 {
     MODULE
     {
-        name = moduleEngineIgnitor
+        name = moduleEngineIgniter
 	IgnitionsPermitted = 2
     }
 }
