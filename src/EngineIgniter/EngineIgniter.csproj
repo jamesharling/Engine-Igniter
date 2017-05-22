@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="PartPatches\Engines-LudicrousPropulsionSystems.cfg" />
     <None Include="PartPatches\Engines-VenStockRevamp.cfg" />
     <None Include="PartPatches\Engines-Squad.cfg" />
   </ItemGroup>
